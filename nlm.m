@@ -34,7 +34,7 @@ function out = nlm(in, valueSigma, distSigma, tileRadius, searchRadius)
             % The shifted window.
             inPaddedShift = inPadded(x1:x2, y1:y2);
             
-            diffs(dx+searchRadius+1, dy+searchRadius+1, :, :) = ((inPaddedShift - inPaddedMid) ./ 255) .^ 2;
+            diffs(dx+searchRadius+1, dy+searchRadius+1, :, :) = (inPaddedShift - inPaddedMid) .^ 2;
             
             % Pre-calculate euclidian distance table here.
             weightDistPerShift(dx+11, dy+11) = exp(-(dx .^ 2 + dy .^ 2) / distSigmaSqr);
