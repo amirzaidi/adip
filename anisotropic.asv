@@ -1,0 +1,38 @@
+function out = anisotropic(in, lambda, K, iter)
+
+    % input image dims
+    [nx, ny] = size(in);
+    in = im2mat(in);
+    
+    % TODO 1  
+    newIm = mirroredges(in, 1);
+    shifts = zeros(nx, ny, 8);
+    shifts(:, :, 1) = newIm(2:end-1, 2:end-1) - newIm((2:end-1) - 1, (2:end-1);
+    
+    for it = 1:iter
+        
+        % Loop through every pixel i,j
+        for iy=2:ny-2
+            for ix=2:nx-2
+                e = in(iy, ix+1);
+                w = in(iy, ix-1);
+                s = in(iy+1, ix);
+                n = in(iy-1, ix);
+
+                eg = e - in(iy, ix);
+                wg = w - in(iy, ix);
+                sg = s - in(iy, ix);
+                ng = n - in(iy, ix);
+
+                east = diffCoef(eg, K) * eg;
+                west = diffCoef(wg, K) * wg;
+                south = diffCoef(sg, K) * sg;
+                north = diffCoef(ng, K) * ng;
+
+                pde = lambda * (east + west + south + north)/4;
+                newIm(iy,ix) = newIm(iy,ix) + (0.25 * pde);
+            end
+        end
+    end
+    out = newIm;
+end

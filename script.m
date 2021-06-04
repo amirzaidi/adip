@@ -23,6 +23,6 @@ dipshow(J)
 title('noisy image')
 
 
-F = anisotropic(mat2im(J), 0.25, 30, 40);
+F = anisotropic(J, 0.08, 30, 100);
 dipshow(F)
 title('filtered image')
